@@ -1,3 +1,24 @@
+<?php
+declare(strict_types=1);
+require_once 'classes\Autoload.php';
+
+use classes\Autoload;
+use classes\Category;
+use classes\DBAL;
+use classes\Product;
+
+try{
+    Autoload::init();
+    DBAL::init();
+}catch(PDOException $e){
+    exit("Connexion DB impossible");
+} catch(Exception $e){
+    exit($e->getMessage());
+}
+
+$categories = Category::all();
+//$products = Category::products;
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -12,13 +33,15 @@
 <body>
     <header></header>
     <main>
-        <div class="category">XXX-categoryName-XXX</div>
+        <?php foreach($categories as $category){?>
+        <div class="category"><?= $category->name ?></div>
         <div class="blockProduct">
             <a href="">
                 <img class="thumbnail" src="assets/img/product_XXX-productID-XXX_small.jpg" alt="XXX-productName-XXX" />
                 <div class="name">XXX-productName-XXX</div>
             </a>
         </div>
+        <?php } ?>
     </main>
     <footer></footer>
 </body>

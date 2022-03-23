@@ -12,7 +12,7 @@ class Product extends Entity
     /**
      * @var int|null PK;
      */
-    private ?int $idProduct;
+    private ?int $idProduct=null;
 
     /**
      * @var int|null
@@ -44,7 +44,7 @@ class Product extends Entity
      * Lazy loading
      * @return Category | null Tableau des catégories.
      */
-    protected function getProduct(): ?Category{
+    protected function getCategory(): ?Category{
         // Si propriété non renseignée, requêter la DB.
         if(!$this->category){
             $q="SELECT * FROM category WHERE idCategory=:idCategory ORDER BY name";

@@ -34,13 +34,14 @@ public ?array $products=null;
  * Lazy loading
  * @return Product[] Tableau des produits.
  */
-protected function getProduct(): array{
+protected function getProducts(): array{
     // Si propriété non renseignée, requêter la DB.
     if(!$this->products){
-        $q="SELECT * FROM product WHERE idCategory=:idCategory";
+        $q="SELECT * FROM product WHERE idCategory=:idCategory ORDER BY name";
         $params=[':idCategory'=>$this->idCategory];
         $rs=DBAL::getPDO()->prepare($q);
         $rs->execute($params);
+        $rs->setFetchMode(PDO::FETCH_CLASS, Product::class);
         $this->products=$rs->fetchAll();
     }
     return $this->products;

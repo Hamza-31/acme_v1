@@ -17,7 +17,7 @@ try{
 }
 
 $categories = Category::all();
-//$products = Category::products;
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -35,12 +35,14 @@ $categories = Category::all();
     <main>
         <?php foreach($categories as $category){?>
         <div class="category"><?= $category->name ?></div>
+
         <div class="blockProduct">
             <a href="">
                 <img class="thumbnail" src="assets/img/product_XXX-productID-XXX_small.jpg" alt="XXX-productName-XXX" />
-                <div class="name">XXX-productName-XXX</div>
+                <div class="name"></div>
             </a>
         </div>
+
         <?php } ?>
     </main>
     <footer></footer>

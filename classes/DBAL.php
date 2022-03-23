@@ -14,10 +14,10 @@ use PDOException;
 final class DBAL
 {
     /** @var array
-     * Options de connexion:
-     *  -Gestion des erreurs basée sur de exceptions.
+     * Options de connexion :
+     *  -Gestion des erreurs basée sur des exceptions.
      *  -Typage des colonnes respecté.
-     *  -Requêtes réeellement préparés plutôt que simplement simulés.
+     *  -Requêtes réellement préparées plutôt que simplement simulées.
      */
     private const OPTIONS = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -29,7 +29,7 @@ final class DBAL
      * @var string
      * Nom de la DB.
      */
-    private const NAME = 'acme';
+    private const NAME = 'acme_v1';
 
     /**
      * @var string

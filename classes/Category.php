@@ -15,7 +15,7 @@ class Category extends Entity
      * @var int | null
      * PK
      */
-private ?int $idCategory=null;
+public ?int $idCategory=null;
 
     /**
      * @var string | null
@@ -27,7 +27,7 @@ public ?string $nom=null;
      * Collection des produits de cette catégorie.
      * @var Product[] | null
      */
-public ?array $products=null;
+protected ?array $products=null;
 
 /**
  * Retourne un tableau de produit (triés par nom) de cette catégorie.
@@ -41,7 +41,7 @@ protected function getProducts(): array{
         $params=[':idCategory'=>$this->idCategory];
         $rs=DBAL::getPDO()->prepare($q);
         $rs->execute($params);
-        $rs->setFetchMode(PDO::FETCH_CLASS, Product::class);
+        $rs->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Product::class);
         $this->products=$rs->fetchAll();
     }
     return $this->products;

@@ -13,53 +13,7 @@ use PDOException;
  */
 final class DBAL
 {
-    /** @var array
-     * Options de connexion :
-     *  -Gestion des erreurs basée sur des exceptions.
-     *  -Typage des colonnes respecté.
-     *  -Requêtes réellement préparées plutôt que simplement simulées.
-     */
-    private const OPTIONS = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_STRINGIFY_FETCHES => false,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
 
-    /**
-     * @var string
-     * Nom de la DB.
-     */
-    private const NAME = 'acme_v1';
-
-    /**
-     * @var string
-     * Hôte de la DB.
-     */
-    private const HOST = 'localhost';
-
-    /**
-     * @var int
-     * Port de l'hôte
-     */
-    private const PORT = 3306;
-
-    /**
-     * @var string
-     * Jeu de caractères de la connexion
-     */
-    private const CHARSET = 'utf8mb4';
-
-    /**
-     * @var string
-     * Identifiant de connexion.
-     */
-    private const LOG = 'root';
-
-    /**
-     * @var string
-     * Mot de passe de connexion
-     */
-    private const PWD = '';
 
     /**
      * @var PDO|null Instance Singleton
@@ -81,8 +35,8 @@ final class DBAL
     public static function init(): void
     {
         if (!self::$pdo) {
-            $dsn = "mysql:dbname=" . self::NAME . ";host=" . self::HOST . ";port=" . self::PORT . ";charset=" . self::CHARSET;
-            self::$pdo = new PDO($dsn, self::LOG, self::PWD, self::OPTIONS);
+            $dsn = "mysql:dbname=" . Cfg::DB_NAME . ";host=" . Cfg::DB_HOST . ";port=" . Cfg::DB_PORT . ";charset=" . Cfg::DB_CHARSET;
+            self::$pdo = new PDO($dsn, Cfg::DB_LOG, Cfg::DB_PWD, Cfg::DB_OPTIONS);
         }
     }
 

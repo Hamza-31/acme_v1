@@ -37,7 +37,7 @@ class Product extends Entity
     /**
      * @var Category|null Catégorie de ce produit.
      */
-    public ?Category $category=null;
+    protected ?Category $category=null;
 
     /**
      * Le constructeur

@@ -30,7 +30,12 @@ if(!$idProduct || $idProduct<0){
 
 
 $product = new Product( $idProduct);
-$product->hydrate();
+
+if(!$product->hydrate()){
+    header('Location:noProduct.php');
+    exit;
+};
+$product->priceFormatted=NumberFormatter::create(Cfg::APP_LOCALE, NumberFormatter::PATTERN_DECIMAL,'##0.00 '.Cfg::APP_CURRENCY  )->format($product->price);
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +45,7 @@ $product->hydrate();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php Cfg::APP_TITLE ?></title>
+    <title><?= Cfg::APP_TITLE ?></title>
     <link rel="stylesheet" href="assets/css/acme.css" />
 </head>
 
@@ -48,16 +53,16 @@ $product->hydrate();
 <header></header>
 <main>
     <div class="category">
-        <a href="listProducts.php">Produits</a> &gt; <?php echo $product->name; ?>
+        <a href="listProducts.php">Produits</a> &gt; <?= $product->name; ?>
     </div>
     <div id="detailProduct">
-        <img src="<?php echo $product->getImgPath(Cfg::IMG_BIG); ?>" alt="<?php echo $product->name; ?>" />
+        <img src="<?= $product->getImgPath(Cfg::IMG_BIG); ?>" alt="<?= $product->name; ?>" />
         <div>
-            <div class="price"><?php echo $product->price; ?></div>
+            <div class="price"><?= $product->priceFormatted; ?></div>
             <div class="category">catégorie<br />
-                <?php echo $product->category; ?></div>
+                <?= $product->category->name; ?></div>
             <div class="ref">référence<br />
-                <?php echo $product->ref; ?></div>
+                <?= $product->ref; ?></div>
         </div>
     </div>
 </main>

@@ -80,6 +80,17 @@ public const IMG_SMALL= 'small';
 public const IMG_BIG = 'big';
 
     /**
+     * @var string Langue locale.
+     */
+public const APP_LOCALE='fr_FR';
+
+    /**
+     * @var string Devis locale.
+     */
+public const APP_CURRENCY='€';
+
+
+    /**
      * Constructeur Privé
      */
 private function __construct(){

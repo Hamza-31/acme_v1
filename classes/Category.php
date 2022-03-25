@@ -21,7 +21,7 @@ public ?int $idCategory=null;
      * @var string | null
      * Nom
      */
-public ?string $nom=null;
+public ?string $name=null;
 
     /**
      * Collection des produits de cette catégorie.

@@ -46,6 +46,8 @@ class Product extends Entity
     public function __construct(?int $idProduct=null){
         $this->idProduct=$idProduct;
     }
+
+
     /**
      * Retourne la catégorie de produit (triés par nom) de cette catégorie.
      * Lazy loading

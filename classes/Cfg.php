@@ -29,7 +29,7 @@ final class Cfg
      * @var string
      * Nom de la DB.
      */
-    public const DB_NAME = 'acme';
+    public const DB_NAME = 'acme_v1';
 
     /**
      * @var string

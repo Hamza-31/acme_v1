@@ -7,11 +7,13 @@ require_once 'classes\Autoload.php';
 use classes\Autoload;
 use classes\Cfg;
 use classes\DBAL;
+use classes\Product;
 
 
 try {
     Autoload::init();
     DBAL::init();
+
 } catch (PDOException $e) {
     exit("Connexion DB impossible");
 } catch (Exception $e) {
@@ -19,11 +21,16 @@ try {
 }
 
 $idProduct =filter_input(INPUT_GET, 'idProduct', FILTER_VALIDATE_INT);
+
 // Si id Product invalide, rediriger vers.
 if(!$idProduct || $idProduct<0){
     header('Location:'.Cfg::APP_ERROR_404);
     exit;
 }
+
+
+$product = new Product( $idProduct);
+$product->hydrate();
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +40,7 @@ if(!$idProduct || $idProduct<0){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XXX-appTitle-XXX</title>
+    <title><?php Cfg::APP_TITLE ?></title>
     <link rel="stylesheet" href="assets/css/acme.css" />
 </head>
 
@@ -41,16 +48,16 @@ if(!$idProduct || $idProduct<0){
 <header></header>
 <main>
     <div class="category">
-        <a href="listProducts.php">Produits</a> &gt; XXX-productName-XXX
+        <a href="listProducts.php">Produits</a> &gt; <?php echo $product->name; ?>
     </div>
     <div id="detailProduct">
-        <img src="assets/img/product_XXX-productID-XXX_big.jpg" alt="XXX-productName-XXX" />
+        <img src="<?php echo $product->getImgPath(Cfg::IMG_BIG); ?>" alt="<?php echo $product->name; ?>" />
         <div>
-            <div class="price">XXX-productPriceFormatted-XXX</div>
+            <div class="price"><?php echo $product->price; ?></div>
             <div class="category">catégorie<br />
-                XXX-categoryName-XXX</div>
+                <?php echo $product->category; ?></div>
             <div class="ref">référence<br />
-                XXX-productReference-XXX</div>
+                <?php echo $product->ref; ?></div>
         </div>
     </div>
 </main>
